@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import math
-from .mbutils import (
+from mbutils import (
     round_filters,
     round_repeats,
     drop_connect,
