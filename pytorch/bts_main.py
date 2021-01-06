@@ -260,7 +260,8 @@ def online_eval(model, dataloader_eval, gpu, ngpus):
                 # print('Invalid depth. continue.')
                 continue
 
-            _, _, _, _, pred_depth = model(image, focal)
+            toutput = model(image, focal)
+            pred_depth = toutput[('disp',0)]
 
             pred_depth = pred_depth.cpu().numpy().squeeze()
             gt_depth = gt_depth.cpu().numpy().squeeze()
