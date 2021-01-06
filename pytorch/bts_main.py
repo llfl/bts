@@ -37,6 +37,7 @@ from tqdm import tqdm
 
 from bts import BtsModel
 from bts_dataloader import *
+from efficient_depth import efficient_depth_module
 
 
 def convert_arg_line_to_args(arg_line):
@@ -333,7 +334,8 @@ def main_worker(gpu, ngpus_per_node, args):
         dist.init_process_group(backend=args.dist_backend, init_method=args.dist_url, world_size=args.world_size, rank=args.rank)
 
     # Create model
-    model = BtsModel(args)
+    # model = BtsModel(args)
+    model = efficient_depth_module(args)
     model.train()
     model.decoder.apply(weights_init_xavier)
     set_misc(model)
