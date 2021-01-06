@@ -449,8 +449,8 @@ def main_worker(gpu, ngpus_per_node, args):
             # lpg8x8, lpg4x4, lpg2x2, reduc1x1, depth_est = model(image, focal)
             output = model(image, focal)
             depth_est = output[('disp',0)]
-            print(depth_est)
-            exit(0)
+            # print(depth_est)
+            # exit(0)
 
             if args.dataset == 'nyu':
                 mask = depth_gt > 0.1
