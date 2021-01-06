@@ -19,6 +19,7 @@ import numpy as np
 
 from collections import namedtuple
 from collections import OrderedDict
+from layers import *
 
 VALID_MODELS = (
     'efficientnet-b0', 'efficientnet-b1', 'efficientnet-b2', 'efficientnet-b3',
