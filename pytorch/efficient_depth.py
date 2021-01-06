@@ -15,6 +15,8 @@ from mbutils import (
     calculate_output_image_size
 )
 
+import numpy as np
+
 from collections import namedtuple
 
 VALID_MODELS = (
