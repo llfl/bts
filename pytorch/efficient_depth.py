@@ -490,6 +490,6 @@ class efficient_depth_module(nn.Module):
         self.encoder = EfficientNet.from_pretrained('efficientnet-b0', advprop=True)
         self.decoder = decoder(params)
 
-    def forward(self, x, focal):
+    def forward(self, x, focal=None):
         skip_feat = self.encoder(x)
         return self.decoder(skip_feat)
