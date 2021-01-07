@@ -459,29 +459,58 @@ class decoder(nn.Module):
         self.outputs = {}
 
         # decoder
-        k = 5
-        d = 3
         x = input_features[-1]
-        for i in range(10, -1, -1):
-            # print(i,x.size())
-            if self.use_skips and (i == 9 or i == 7 or i == 6 or i == 4 or i == 2 or i == 0):
-                x = [x]
-                x += [input_features[k]]
-                k = k - 1
-                x = torch.cat(x, 1)
-                x = self.convs[("upconv", i)](x)
-            else:
-                x = self.convs[("upconv", i)](x)
 
-            if( i == 8 or i == 5 or i == 3 or i == 1):
-                x = upsample(x)
-                if(i != 8 ):
-                    self.outputs[("disp", d)] = self.sigmoid(self.convs[("dispconv", d)](x))
-                    d = d - 1
-                    
+        x = self.convs[("upconv", 10)](x)
+        x = [x]
+        x += [input_features[5]]
+
+        x = torch.cat(x, 1)
+        x = self.convs[("upconv", 9)](x)
+
+        x = self.convs[("upconv", 8)](x)
+        x = upsample(x)
+
+        x = [x]
+        x += [input_features[4]]
+        x = torch.cat(x, 1)
+        x = self.convs[("upconv", 7)](x)
+
+        x = [x]
+        x += [input_features[3]]
+        x = torch.cat(x, 1)
+        x = self.convs[("upconv", 6)](x)
+
+        x = self.convs[("upconv", 5)](x)
+        x = upsample(x)
+        self.outputs[("disp", 3)] = self.sigmoid(self.convs[("dispconv", 3)](x))
+
+        x = [x]
+        x += [input_features[2]]
+        x = torch.cat(x, 1)
+        x = self.convs[("upconv", 4)](x)
+
+        x = self.convs[("upconv", 3)](x)
+        x = upsample(x)
+        self.outputs[("disp", 2)] = self.sigmoid(self.convs[("dispconv", 2)](x))
+
+        x = [x]
+        x += [input_features[1]]
+        x = torch.cat(x, 1)
+        x = self.convs[("upconv", 2)](x)
+
+        x = self.convs[("upconv", 1)](x)
+        x = upsample(x)
+        self.outputs[("disp", 1)] = self.sigmoid(self.convs[("dispconv", 1)](x))
+
+        x = [x]
+        x += [input_features[0]]
+        x = torch.cat(x, 1)
+        x = self.convs[("upconv", 0)](x)
+
         x = upsample(x)
         # x = F.interpolate(x, scale_factor=0.5, mode="nearest")
-        self.outputs[("disp", 0)] = self.sigmoid(self.convs[("dispconv", d)](x))
+        self.outputs[("disp", 0)] = self.sigmoid(self.convs[("dispconv", 0)](x))
         return self.outputs
 
 class efficient_depth_module(nn.Module):
