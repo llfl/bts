@@ -260,8 +260,7 @@ def online_eval(model, dataloader_eval, gpu, ngpus):
                 # print('Invalid depth. continue.')
                 continue
 
-            toutput = model(image, focal)
-            pred_depth = toutput[('disp',0)]
+            pred_depth = model(image, focal)
 
             pred_depth = pred_depth.cpu().numpy().squeeze()
             gt_depth = gt_depth.cpu().numpy().squeeze()
@@ -448,11 +447,10 @@ def main_worker(gpu, ngpus_per_node, args):
             depth_gt = torch.autograd.Variable(sample_batched['depth'].cuda(args.gpu, non_blocking=True))
 
             # lpg8x8, lpg4x4, lpg2x2, reduc1x1, depth_est = model(image, focal)
-            output = model(image, focal)
-            depth_est = output[('disp',0)]
-            reduc1x1  = output[('disp',1)]
-            lpg2x2    = output[('disp',2)]
-            lpg4x4    = output[('disp',3)]
+            depth_est = model(image, focal)
+            reduc1x1  = model.decoder.d2outputs
+            lpg2x2    = model.decoder.d4outputs
+            lpg4x4    = model.decoder.d8outputs
             # print(depth_est)
             # exit(0)
 
