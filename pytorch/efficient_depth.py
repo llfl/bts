@@ -483,7 +483,7 @@ class decoder(nn.Module):
 
         x = self.convs[("upconv", 5)](x)
         x = upsample(x)
-        self.outputs[("disp", 3)] = self.sigmoid(self.convs[("dispconv", 3)](x))
+        self.d8outputs = self.sigmoid(self.convs[("dispconv", 3)](x))
 
         x = [x]
         x += [input_features[2]]
@@ -492,7 +492,7 @@ class decoder(nn.Module):
 
         x = self.convs[("upconv", 3)](x)
         x = upsample(x)
-        self.outputs[("disp", 2)] = self.sigmoid(self.convs[("dispconv", 2)](x))
+        self.d4outputs = self.sigmoid(self.convs[("dispconv", 2)](x))
 
         x = [x]
         x += [input_features[1]]
@@ -501,7 +501,7 @@ class decoder(nn.Module):
 
         x = self.convs[("upconv", 1)](x)
         x = upsample(x)
-        self.outputs[("disp", 1)] = self.sigmoid(self.convs[("dispconv", 1)](x))
+        self.d2outputs = self.sigmoid(self.convs[("dispconv", 1)](x))
 
         x = [x]
         x += [input_features[0]]
@@ -510,8 +510,8 @@ class decoder(nn.Module):
 
         x = upsample(x)
         # x = F.interpolate(x, scale_factor=0.5, mode="nearest")
-        self.outputs[("disp", 0)] = self.sigmoid(self.convs[("dispconv", 0)](x))
-        return self.outputs
+        self.depth_outputs = self.sigmoid(self.convs[("dispconv", 0)](x))
+        return self.depth_outputs
 
 class efficient_depth_module(nn.Module):
     def __init__(self, params):
