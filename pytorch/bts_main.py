@@ -449,7 +449,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
             # lpg8x8, lpg4x4, lpg2x2, reduc1x1, depth_est = model(image, focal)
             depth_est = model(image, focal)
-            print(dir(model))
+            print(model)
             exit(0)
             reduc1x1  = model.decoder.d2outputs
             lpg2x2    = model.decoder.d4outputs
