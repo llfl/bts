@@ -264,6 +264,7 @@ def online_eval(model, dataloader_eval, gpu, ngpus):
 
             pred_depth = pred_depth.cpu().numpy().squeeze()
             gt_depth = gt_depth.cpu().numpy().squeeze()
+            pred_depth = gt_depth
 
         if args.do_kb_crop:
             height, width = gt_depth.shape
