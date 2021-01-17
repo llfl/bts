@@ -450,9 +450,9 @@ def main_worker(gpu, ngpus_per_node, args):
             # lpg8x8, lpg4x4, lpg2x2, reduc1x1, depth_est = model(image, focal)
             depth_est = model(image, focal)
 
-            reduc1x1  = model.decoder.d2outputs
-            lpg2x2    = model.decoder.d4outputs
-            lpg4x4    = model.decoder.d8outputs
+            # reduc1x1  = model.decoder.d2outputs
+            # lpg2x2    = model.decoder.d4outputs
+            # lpg4x4    = model.decoder.d8outputs
             # print(depth_est)
             # exit(0)
 
@@ -498,9 +498,9 @@ def main_worker(gpu, ngpus_per_node, args):
                     for i in range(num_log_images):
                         writer.add_image('depth_gt/image/{}'.format(i), normalize_result(1/depth_gt[i, :, :, :].data), global_step)
                         writer.add_image('depth_est/image/{}'.format(i), normalize_result(1/depth_est[i, :, :, :].data), global_step)
-                        writer.add_image('reduc1x1/image/{}'.format(i), normalize_result(1/reduc1x1[i, :, :, :].data), global_step)
-                        writer.add_image('lpg2x2/image/{}'.format(i), normalize_result(1/lpg2x2[i, :, :, :].data), global_step)
-                        writer.add_image('lpg4x4/image/{}'.format(i), normalize_result(1/lpg4x4[i, :, :, :].data), global_step)
+                        # writer.add_image('reduc1x1/image/{}'.format(i), normalize_result(1/reduc1x1[i, :, :, :].data), global_step)
+                        # writer.add_image('lpg2x2/image/{}'.format(i), normalize_result(1/lpg2x2[i, :, :, :].data), global_step)
+                        # writer.add_image('lpg4x4/image/{}'.format(i), normalize_result(1/lpg4x4[i, :, :, :].data), global_step)
                         # writer.add_image('lpg8x8/image/{}'.format(i), normalize_result(1/lpg8x8[i, :, :, :].data), global_step)
                         writer.add_image('image/image/{}'.format(i), inv_normalize(image[i, :, :, :]).data, global_step)
                     writer.flush()
