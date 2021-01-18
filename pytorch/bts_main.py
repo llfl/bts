@@ -337,8 +337,8 @@ def main_worker(gpu, ngpus_per_node, args):
     # model = BtsModel(args)
     model = efficient_depth_module(args)
     model.train()
-    model.decoder.apply(weights_init_xavier)
-    set_misc(model)
+    # model.decoder.apply(weights_init_xavier)
+    # set_misc(model)
 
     num_params = sum([np.prod(p.size()) for p in model.parameters()])
     print("Total number of parameters: {}".format(num_params))
