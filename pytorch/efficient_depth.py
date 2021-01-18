@@ -468,7 +468,7 @@ class decoder(nn.Module):
         x = torch.cat(x, 1)
         x = self.convs[("upconv", 9)](x)
 
-        x = self.convs[("upconv", 8)](x)
+        x = self.convs[("upconv", 8)](x) / self.params.max_depth
         x = upsample(x)
 
         x = [x]
@@ -481,37 +481,37 @@ class decoder(nn.Module):
         x = torch.cat(x, 1)
         x = self.convs[("upconv", 6)](x)
 
-        x = self.convs[("upconv", 5)](x)
+        x = self.convs[("upconv", 5)](x) / self.params.max_depth
         x = upsample(x)
-        self.d8outputs = self.sigmoid(self.convs[("dispconv", 3)](x))
+        # self.d8outputs = self.sigmoid(self.convs[("dispconv", 3)](x))
 
         x = [x]
         x += [input_features[2]]
         x = torch.cat(x, 1)
         x = self.convs[("upconv", 4)](x)
 
-        x = self.convs[("upconv", 3)](x)
+        x = self.convs[("upconv", 3)](x) / self.params.max_depth
         x = upsample(x)
-        self.d4outputs = self.sigmoid(self.convs[("dispconv", 2)](x))
+        # self.d4outputs = self.sigmoid(self.convs[("dispconv", 2)](x))
 
         x = [x]
         x += [input_features[1]]
         x = torch.cat(x, 1)
         x = self.convs[("upconv", 2)](x)
 
-        x = self.convs[("upconv", 1)](x)
+        x = self.convs[("upconv", 1)](x) / self.params.max_depth
         x = upsample(x)
-        self.d2outputs = self.sigmoid(self.convs[("dispconv", 1)](x))
+        # self.d2outputs = self.sigmoid(self.convs[("dispconv", 1)](x))
 
         x = [x]
         x += [input_features[0]]
         x = torch.cat(x, 1)
-        x = self.convs[("upconv", 0)](x)
+        x = self.convs[("upconv", 0)](x) / self.params.max_depth
 
         x = upsample(x)
         # x = F.interpolate(x, scale_factor=0.5, mode="nearest")
         self.depth_outputs = self.sigmoid(self.convs[("dispconv", 0)](x))
-        return self.depth_outputs
+        return self.depth_outputs  / self.params.max_depth
 
 class efficient_depth_module(nn.Module):
     def __init__(self, params):
