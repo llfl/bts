@@ -511,7 +511,7 @@ class decoder(nn.Module):
         x = upsample(x)
         # x = F.interpolate(x, scale_factor=0.5, mode="nearest")
         self.depth_outputs = self.sigmoid(self.convs[("dispconv", 0)](x))
-        return self.depth_outputs  / self.params.max_depth
+        return self.depth_outputs * self.params.max_depth
 
 class efficient_depth_module(nn.Module):
     def __init__(self, params):
