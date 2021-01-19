@@ -248,7 +248,7 @@ def set_misc(model):
                 parameters.requires_grad = False
 
 
-def online_eval(model, dataloader_eval, gpu, ngpus):
+def online_eval(model, dataloader_eval, gpu, ngpus, args=None):
     eval_measures = torch.zeros(10).cuda(device=gpu)
     for _, eval_sample_batched in enumerate(tqdm(dataloader_eval.data)):
         with torch.no_grad():
@@ -261,7 +261,7 @@ def online_eval(model, dataloader_eval, gpu, ngpus):
                 continue
 
             pred_depth = model(image, focal)
-            if self.params.dataset == 'kitti':
+            if args.dataset == 'kitti':
                 pred_depth = pred_depth * focal.view(-1, 1, 1, 1).float() / 715.0873
 
             pred_depth = pred_depth.cpu().numpy().squeeze()
@@ -450,7 +450,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
             # lpg8x8, lpg4x4, lpg2x2, reduc1x1, depth_est = model(image, focal)
             depth_est = model(image, focal)
-            if self.params.dataset == 'kitti':
+            if args.dataset == 'kitti':
                 depth_est = depth_est * focal.view(-1, 1, 1, 1).float() / 715.0873
 
             # reduc1x1  = model.decoder.d2outputs
@@ -518,7 +518,7 @@ def main_worker(gpu, ngpus_per_node, args):
             if args.do_online_eval and global_step and global_step % args.eval_freq == 0 and not model_just_loaded:
                 time.sleep(0.1)
                 model.eval()
-                eval_measures = online_eval(model, dataloader_eval, gpu, ngpus_per_node)
+                eval_measures = online_eval(model, dataloader_eval, gpu, ngpus_per_node, args)
                 if eval_measures is not None:
                     for i in range(9):
                         eval_summary_writer.add_scalar(eval_metrics[i], eval_measures[i].cpu(), int(global_step))
