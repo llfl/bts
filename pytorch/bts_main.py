@@ -262,6 +262,7 @@ def online_eval(model, dataloader_eval, gpu, ngpus, args=None):
 
             pred_depth = model(image, focal)
             if args.dataset == 'kitti':
+                print("kitti")
                 pred_depth = pred_depth * focal.view(-1, 1, 1, 1).float() / 715.0873
 
             pred_depth = pred_depth.cpu().numpy().squeeze()
