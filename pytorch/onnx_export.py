@@ -22,6 +22,7 @@ parser.add_argument('--input_width', type=int, help='input width', default=640)
 parser.add_argument('--max_depth', type=float, help='maximum depth in estimation', default=80)
 parser.add_argument('--checkpoint_path', type=str, help='path to a specific checkpoint to load', default='')
 parser.add_argument('--dataset', type=str, help='dataset to train on, make3d or nyudepthv2', default='nyu')
+parser.add_argument('--export_name', type=str, help='export name of onnx file', default='export_name')
 
 if sys.argv.__len__() == 2:
     arg_filename_with_prefix = '@' + sys.argv[1]
