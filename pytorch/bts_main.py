@@ -261,6 +261,8 @@ def online_eval(model, dataloader_eval, gpu, ngpus):
                 continue
 
             pred_depth = model(image, focal)
+            if self.params.dataset == 'kitti':
+                pred_depth = pred_depth * focal.view(-1, 1, 1, 1).float() / 715.0873
 
             pred_depth = pred_depth.cpu().numpy().squeeze()
             gt_depth = gt_depth.cpu().numpy().squeeze()
@@ -448,6 +450,8 @@ def main_worker(gpu, ngpus_per_node, args):
 
             # lpg8x8, lpg4x4, lpg2x2, reduc1x1, depth_est = model(image, focal)
             depth_est = model(image, focal)
+            if self.params.dataset == 'kitti':
+                depth_est = depth_est * focal.view(-1, 1, 1, 1).float() / 715.0873
 
             # reduc1x1  = model.decoder.d2outputs
             # lpg2x2    = model.decoder.d4outputs
