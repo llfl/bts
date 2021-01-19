@@ -1,5 +1,5 @@
 --dataset nyu
---checkpoint_path ./module/model-293500-best_silog_16.27064
+--checkpoint_path ./models/model-293500-best_silog_16.27064
 --input_height 480
 --input_width 640
 --max_depth 10

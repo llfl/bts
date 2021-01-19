@@ -16,6 +16,7 @@ result*
 *.zip
 !splits.mat
 utils/toolbox_nyu_depth_v2
+*.onnx
 
 ### C++ ###
 # Prerequisites
