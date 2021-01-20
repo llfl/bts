@@ -114,7 +114,7 @@ parser.add_argument('--eval_freq',                 type=int,   help='Online eval
 parser.add_argument('--eval_summary_directory',    type=str,   help='output directory for eval summary,'
                                                                     'if empty outputs to checkpoint folder', default='')
 
-parser.add_argument('--enable_quan',                             help='if set, enable quan', action='store_false')
+parser.add_argument('--enable_quan',                             help='if set, enable quan', action='store_true')
 
 if sys.argv.__len__() == 2:
     arg_filename_with_prefix = '@' + sys.argv[1]
