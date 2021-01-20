@@ -1,5 +1,5 @@
 --mode train
---model_name bts_eigen_v2_pytorch_test
+--model_name bts_eigen_v2_pytorch_test_quan
 --encoder densenet161_bts
 --dataset kitti
 --data_path ../../dataset/kitti_dataset/
@@ -31,3 +31,5 @@
 --max_depth_eval 80
 --eval_summary_directory ./models/eval/
 --garg_crop
+
+--enable_quan
