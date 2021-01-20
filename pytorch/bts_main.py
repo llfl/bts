@@ -37,8 +37,7 @@ from tqdm import tqdm
 
 from bts import BtsModel
 from bts_dataloader import *
-from efficient_depth import efficient_depth_module
-from efficient_depth import efficient_depth_quan_module
+from efficient_depth import efficient_depth_module, efficient_depth_quan_module
 
 
 def convert_arg_line_to_args(arg_line):
