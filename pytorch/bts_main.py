@@ -342,8 +342,10 @@ def main_worker(gpu, ngpus_per_node, args):
     # model = BtsModel(args)
 
     if args.enable_quan:
+        print("quan enabled")
         model = efficient_depth_quan_module(args)
     else:
+        print("normal model")
         model = efficient_depth_module(args)
     model.train()
     # model.decoder.apply(weights_init_xavier)
