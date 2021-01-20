@@ -530,7 +530,7 @@ class efficient_depth_module(nn.Module):
 
 class efficient_depth_quan_module(nn.Module):
     def __init__(self, params):
-        super(efficient_depth_module, self).__init__()
+        super(efficient_depth_quan_module, self).__init__()
         with open('encoderconfig.yaml') as yaml_file:
             cfg = yaml.safe_load(yaml_file)
         encoderquanargs = munch.munchify(cfg)
