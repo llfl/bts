@@ -38,6 +38,7 @@ from tqdm import tqdm
 from bts import BtsModel
 from bts_dataloader import *
 from efficient_depth import efficient_depth_module
+from efficient_depth import efficient_depth_quan_module
 
 
 def convert_arg_line_to_args(arg_line):
@@ -113,6 +114,8 @@ parser.add_argument('--garg_crop',                             help='if set, cro
 parser.add_argument('--eval_freq',                 type=int,   help='Online evaluation frequency in global steps', default=500)
 parser.add_argument('--eval_summary_directory',    type=str,   help='output directory for eval summary,'
                                                                     'if empty outputs to checkpoint folder', default='')
+
+parser.add_argument('--enable_quan',                             help='if set, enable quan', action='store_false')
 
 if sys.argv.__len__() == 2:
     arg_filename_with_prefix = '@' + sys.argv[1]
@@ -338,7 +341,11 @@ def main_worker(gpu, ngpus_per_node, args):
 
     # Create model
     # model = BtsModel(args)
-    model = efficient_depth_module(args)
+
+    if args.enable_quan:
+        model = efficient_depth_quan_module(args)
+    else:
+        model = efficient_depth_module(args)
     model.train()
     # model.decoder.apply(weights_init_xavier)
     # set_misc(model)

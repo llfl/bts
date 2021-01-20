@@ -517,7 +517,7 @@ class decoder(nn.Module):
         self.depth_outputs = self.sigmoid(self.convs[("dispconv", 0)](x))
         return self.depth_outputs * self.params.max_depth
 
-class efficient_depth_module(nn.Module):
+class efficient_depth_quan_module(nn.Module):
     def __init__(self, params):
         super(efficient_depth_module, self).__init__()
         with open('encoderconfig.yaml') as yaml_file:

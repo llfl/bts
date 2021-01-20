@@ -31,3 +31,5 @@
 --max_depth_eval 80
 --eval_summary_directory ./models/eval/
 --garg_crop
+
+--enable_quan
