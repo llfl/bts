@@ -21,6 +21,10 @@ from collections import namedtuple
 from collections import OrderedDict
 from layers import *
 
+import yaml
+import quan
+import munch
+
 VALID_MODELS = (
     'efficientnet-b0', 'efficientnet-b1', 'efficientnet-b2', 'efficientnet-b3',
     'efficientnet-b4', 'efficientnet-b5', 'efficientnet-b6', 'efficientnet-b7',
@@ -518,6 +522,30 @@ class efficient_depth_module(nn.Module):
         super(efficient_depth_module, self).__init__()
         self.encoder = EfficientNet.from_pretrained('efficientnet-b0', advprop=True)
         self.decoder = decoder(params)
+
+    def forward(self, x, focal=None):
+        skip_feat = self.encoder(x)
+        return self.decoder(skip_feat)
+
+
+class efficient_depth_quan_module(nn.Module):
+    def __init__(self, params):
+        super(efficient_depth_module, self).__init__()
+        with open('encoderconfig.yaml') as yaml_file:
+            cfg = yaml.safe_load(yaml_file)
+        encoderquanargs = munch.munchify(cfg)
+        with open('decoderconfig.yaml') as yaml_file:
+            cfg = yaml.safe_load(yaml_file)
+        decoderquanargs = munch.munchify(cfg)
+
+        net = EfficientNet.from_pretrained('efficientnet-b0', advprop=True)
+        replaced_modules = quan.find_modules_to_quantize(net, encoderquanargs.quan)
+        self.encoder = quan.replace_module_by_names(net, replaced_modules)
+
+        net = decoder(params)
+        replaced_modules = quan.find_modules_to_quantize(net, decoderquanargs.quan)
+        self.decoder = quan.replace_module_by_names(net, replaced_modules)
+
 
     def forward(self, x, focal=None):
         skip_feat = self.encoder(x)
