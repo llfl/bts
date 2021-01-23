@@ -344,6 +344,14 @@ def main_worker(gpu, ngpus_per_node, args):
     if args.enable_quan:
         print("quan enabled")
         model = efficient_depth_quan_module(args)
+        checkpoint = torch.load('./models/bts_nyu_v2_pytorch_test_quan_1/model-275500-best_silog_26.44541')
+        state_dict = checkpoint['model']
+        from collections import OrderedDict
+        new_state_dict = OrderedDict()
+        for k, v in state_dict.items():
+            name = k[7:] # remove module.
+            new_state_dict[name] = v
+        model.load_state_dict(new_state_dict)
     else:
         print("normal model")
         model = efficient_depth_module(args)
