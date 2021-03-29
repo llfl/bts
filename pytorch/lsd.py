@@ -170,7 +170,7 @@ class LSD(nn.Module):
         self.disp = ConvBlock(16, 1)
         self.act = nn.ReLU()
 
-    def forward(self, inputs):
+    def forward(self, inputs, focal=None):
         #Encoder
         #Stem
         x = self.bn0(self.conv_stem(inputs))
