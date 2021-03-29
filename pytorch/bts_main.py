@@ -38,6 +38,7 @@ from tqdm import tqdm
 from bts import BtsModel
 from bts_dataloader import *
 from efficient_depth import efficient_depth_module, efficient_depth_quan_module
+import lsd
 
 
 def convert_arg_line_to_args(arg_line):
@@ -341,20 +342,7 @@ def main_worker(gpu, ngpus_per_node, args):
     # Create model
     # model = BtsModel(args)
 
-    if args.enable_quan:
-        print("quan enabled")
-        model = efficient_depth_quan_module(args)
-        checkpoint = torch.load('./models/bts_nyu_v2_pytorch_test_quan_1/model-275500-best_silog_26.44541')
-        state_dict = checkpoint['model']
-        from collections import OrderedDict
-        new_state_dict = OrderedDict()
-        for k, v in state_dict.items():
-            name = k[7:] # remove module.
-            new_state_dict[name] = v
-        model.load_state_dict(new_state_dict)
-    else:
-        print("normal model")
-        model = efficient_depth_module(args)
+    model = lsd.LSD()
     model.train()
     # model.decoder.apply(weights_init_xavier)
     # set_misc(model)
