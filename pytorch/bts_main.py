@@ -377,7 +377,7 @@ def main_worker(gpu, ngpus_per_node, args):
     best_eval_steps = np.zeros(9, dtype=np.int32)
 
     # Training parameters
-    optimizer = torch.optim.AdamW([{'params': model.module.parameters(), 'weight_decay': args.weight_decay}],
+    optimizer = torch.optim.AdamW([{'params': model.parameters(), 'weight_decay': args.weight_decay}],
                                   lr=args.learning_rate, eps=args.adam_eps)
 
     model_just_loaded = False
