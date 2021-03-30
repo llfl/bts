@@ -13,7 +13,7 @@
 --num_threads 1
 --input_height 416
 --input_width 544
---max_depth 10
+--max_depth 20
 --do_random_rotate
 --degree 2.5
 --log_directory ./models/
