@@ -1,5 +1,5 @@
 --mode train
---model_name bts_eigen_v2_pytorch_test
+--model_name 0330bts_eigen_v2_pytorch_test
 --encoder densenet161_bts
 --dataset kitti
 --data_path ../../dataset/kitti_dataset/
