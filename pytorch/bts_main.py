@@ -342,7 +342,7 @@ def main_worker(gpu, ngpus_per_node, args):
     # Create model
     # model = BtsModel(args)
 
-    model = lsd.LSD(max_depth=args.max_depth)
+    model = lsd.LSD()
     model.train()
     # model.decoder.apply(weights_init_xavier)
     # set_misc(model)
