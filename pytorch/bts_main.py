@@ -350,7 +350,7 @@ def main_worker(gpu, ngpus_per_node, args):
         with open('quanconfig.yaml') as yaml_file:
             cfg = yaml.safe_load(yaml_file)
         quanargs = munch.munchify(cfg)
-        replaced_modules = quan.find_modules_to_quantize(net, quanargs.quan)
+        replaced_modules = quan.find_modules_to_quantize(model, quanargs.quan)
         model = quan.replace_module_by_names(model, replaced_modules)
         print("quan enabled")
     model.train()
