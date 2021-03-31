@@ -557,7 +557,7 @@ def main_worker(gpu, ngpus_per_node, args):
                     eval_summary_writer.flush()
                 model.train()
                 block_print()
-                set_misc(model)
+                # set_misc(model)
                 enable_print()
 
             model_just_loaded = False
