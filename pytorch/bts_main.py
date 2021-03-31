@@ -351,7 +351,7 @@ def main_worker(gpu, ngpus_per_node, args):
             cfg = yaml.safe_load(yaml_file)
         quanargs = munch.munchify(cfg)
         replaced_modules = quan.find_modules_to_quantize(net, quanargs.quan)
-        model = quan.replace_module_by_names(net, replaced_modules)
+        model = quan.replace_module_by_names(model, replaced_modules)
         print("quan enabled")
     model.train()
     # model.decoder.apply(weights_init_xavier)
