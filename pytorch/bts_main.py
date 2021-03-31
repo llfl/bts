@@ -39,6 +39,9 @@ from bts import BtsModel
 from bts_dataloader import *
 from efficient_depth import efficient_depth_module, efficient_depth_quan_module
 import lsd
+import yaml
+import quan
+import munch
 
 
 def convert_arg_line_to_args(arg_line):
@@ -343,6 +346,12 @@ def main_worker(gpu, ngpus_per_node, args):
     # model = BtsModel(args)
 
     model = lsd.LSD(max_depth=args.max_depth)
+    if args.enable_quan:
+        with open('quanconfig.yaml') as yaml_file:
+            cfg = yaml.safe_load(yaml_file)
+        quanargs = munch.munchify(cfg)
+        replaced_modules = quan.find_modules_to_quantize(net, quanargs.quan)
+        model = quan.replace_module_by_names(net, replaced_modules)
     model.train()
     # model.decoder.apply(weights_init_xavier)
     # set_misc(model)

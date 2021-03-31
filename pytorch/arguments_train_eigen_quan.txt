@@ -1,5 +1,5 @@
 --mode train
---model_name bts_eigen_v2_pytorch_test_quan
+--model_name 0331bts_eigen_v2_pytorch_test_quan
 --encoder densenet161_bts
 --dataset kitti
 --data_path ../../dataset/kitti_dataset/
@@ -18,7 +18,6 @@
 --do_random_rotate
 --degree 1.0
 --log_directory ./models/
---multiprocessing_distributed
 --dist_url tcp://127.0.0.1:2345
 
 --log_freq 100
