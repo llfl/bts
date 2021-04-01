@@ -19,7 +19,7 @@
 --degree 1.0
 --log_directory ./models/
 --dist_url tcp://127.0.0.1:2345
---checkpoint_path ./models/03301bts_eigen_v2_pytorch_test/model-252500-best_log10_0.03502
+--checkpoint_path ./models/03301bts_eigen_v2_pytorch_test/model-282500-best_silog_11.26608
 
 --log_freq 100
 --do_online_eval
