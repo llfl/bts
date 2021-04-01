@@ -351,7 +351,7 @@ def main_worker(gpu, ngpus_per_node, args):
             checkpoint = torch.load(args.checkpoint_path)
             print(model)
             state_dict = checkpoint['model']
-            print(state_dict)
+            print(state_dict.keys())
             # model.load_state_dict(state_dict)
             from collections import OrderedDict
             new_state_dict = OrderedDict()
