@@ -349,8 +349,8 @@ def main_worker(gpu, ngpus_per_node, args):
     if args.enable_quan:
         if len(args.checkpoint_path) > 0:
             checkpoint = torch.load(args.checkpoint_path)
-            model.load_state_dict(checkpoint)
-            # state_dict = checkpoint['model']
+            state_dict = checkpoint['model']
+            model.load_state_dict(state_dict)
             # from collections import OrderedDict
             # new_state_dict = OrderedDict()
             # for k, v in state_dict.items():
