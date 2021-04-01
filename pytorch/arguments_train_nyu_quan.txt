@@ -18,7 +18,7 @@
 --degree 2.5
 --log_directory ./models/
 --dist_url tcp://127.0.0.1:2345
---checkpoint_path ./models/03301bts_nyu_v2_pytorch_test/model-295500-best_silog_15.88626
+--checkpoint_path ./models/03301bts_nyu_v2_pytorch_test/model-302500-best_d1_0.78016
 
 --log_freq 100
 --do_online_eval
