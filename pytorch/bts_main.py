@@ -349,13 +349,14 @@ def main_worker(gpu, ngpus_per_node, args):
     if args.enable_quan:
         if len(args.checkpoint_path) > 0:
             checkpoint = torch.load(args.checkpoint_path)
-            state_dict = checkpoint['model']
-            from collections import OrderedDict
-            new_state_dict = OrderedDict()
-            for k, v in state_dict.items():
-                name = k[7:] # remove module.
-                new_state_dict[name] = v
-            model.load_state_dict(new_state_dict)
+            model.load_state_dict(checkpoint)
+            # state_dict = checkpoint['model']
+            # from collections import OrderedDict
+            # new_state_dict = OrderedDict()
+            # for k, v in state_dict.items():
+            #     name = k[7:] # remove module.
+            #     new_state_dict[name] = v
+            # model.load_state_dict(new_state_dict)
         with open('quanconfig.yaml') as yaml_file:
             cfg = yaml.safe_load(yaml_file)
         quanargs = munch.munchify(cfg)
