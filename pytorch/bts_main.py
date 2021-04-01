@@ -349,7 +349,7 @@ def main_worker(gpu, ngpus_per_node, args):
     if args.enable_quan:
         if len(args.checkpoint_path) > 0:
             checkpoint = torch.load(args.checkpoint_path)
-            print(model.state_dict.keys())
+            print(model.state_dict().keys())
             state_dict = checkpoint['model']
             print(state_dict.keys())
             # model.load_state_dict(state_dict)
