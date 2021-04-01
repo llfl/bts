@@ -402,7 +402,7 @@ def main_worker(gpu, ngpus_per_node, args):
                                   lr=args.learning_rate, eps=args.adam_eps)
 
     model_just_loaded = False
-    if args.checkpoint_path != '' and !args.enable_quan:
+    if args.checkpoint_path != '' and not(args.enable_quan):
         if os.path.isfile(args.checkpoint_path):
             print("Loading checkpoint '{}'".format(args.checkpoint_path))
             if args.gpu is None:
